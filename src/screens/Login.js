@@ -106,66 +106,66 @@ function Login() {
 
     // EXECUTE LOGIN
     login({ variables: { userName, password } });
-
-    const clearLoginError = () => {
-      clearErrors("result");
-    };
-
-    return (
-      <AuthLayout>
-        <PageTitle title="Login" />
-        <FormBox>
-          <div>
-            <FontAwesomeIcon icon={faInstagram} />
-          </div>
-          <Notification message={location?.state?.message} />
-          <form onSubmit={handleSubmit(onSubmitValid)}>
-            <Input
-              {...register("userName", {
-                required: "Username is required.",
-                minLength: {
-                  value: 5,
-                  message: "Username should be longer than 5 chars.",
-                },
-              })}
-              type="text"
-              placeholder="Username"
-              hasError={Boolean(formState?.errors?.userName?.message)}
-              onFocus={clearLoginError}
-            />
-            <FormError message={formState?.errors?.userName?.message} />
-            <Input
-              {...register("password", { required: "Password is required." })}
-              type="password"
-              placeholder="Password"
-              hasError={Boolean(formState?.errors?.password?.message)}
-              onFocus={clearLoginError}
-            />
-            <FormError message={formState.errors?.password?.message} />
-            <Button
-              type="submit"
-              value={loading ? "Loading..." : "Log in"}
-              disabled={!formState?.isValid || loading}
-            />
-            <FormError message={formState?.errors?.result?.message} />
-          </form>
-
-          <Separator />
-
-          <FacebookLogin>
-            <FontAwesomeIcon icon={faFacebookSquare} />
-            <span>Log in with Facebook</span>
-          </FacebookLogin>
-          <ForgotPassword>ForgotPassword?</ForgotPassword>
-        </FormBox>
-        <BottomBox
-          cta="Don't have an account?"
-          linkText="Sign Up"
-          link={routes.signUp}
-        />
-      </AuthLayout>
-    );
   };
+
+  const clearLoginError = () => {
+    clearErrors("result");
+  };
+
+  return (
+    <AuthLayout>
+      <PageTitle title="Login" />
+      <FormBox>
+        <div>
+          <FontAwesomeIcon icon={faInstagram} size="3x" />
+        </div>
+        <Notification message={location?.state?.message} />
+        <form onSubmit={handleSubmit(onSubmitValid)}>
+          <Input
+            {...register("userName", {
+              required: "Username is required.",
+              minLength: {
+                value: 5,
+                message: "Username should be longer than 5 chars.",
+              },
+            })}
+            type="text"
+            placeholder="Username"
+            hasError={Boolean(formState?.errors?.userName?.message)}
+            onFocus={clearLoginError}
+          />
+          <FormError message={formState?.errors?.userName?.message} />
+          <Input
+            {...register("password", { required: "Password is required." })}
+            type="password"
+            placeholder="Password"
+            hasError={Boolean(formState?.errors?.password?.message)}
+            onFocus={clearLoginError}
+          />
+          <FormError message={formState.errors?.password?.message} />
+          <Button
+            type="submit"
+            value={loading ? "Loading..." : "Log in"}
+            disabled={!formState?.isValid || loading}
+          />
+          <FormError message={formState?.errors?.result?.message} />
+        </form>
+
+        <Separator />
+
+        <FacebookLogin>
+          <FontAwesomeIcon icon={faFacebookSquare} />
+          <span>Log in with Facebook</span>
+        </FacebookLogin>
+        <ForgotPassword>ForgotPassword?</ForgotPassword>
+      </FormBox>
+      <BottomBox
+        cta="Don't have an account?"
+        linkText="Sign Up"
+        link={routes.signUp}
+      />
+    </AuthLayout>
+  );
 }
 
 export default Login;

@@ -17,28 +17,27 @@ function App() {
   // Change detected --> trigger re-render (React Hook)
   // way to change isLoggedInVar? --> isLoggedInVar("CHANGE VALUE")
 
+  console.log(isLoggedIn);
+
   return (
     <ApolloProvider client={client}>
       <HelmetProvider>
         <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-          <GlobalStyles>
-            <Router>
-              <Switch>
-                <Route path={routes.home} exact>
-                  {isLoggedIn ? <Layout>Home</Layout> : <Login />}
-                </Route>
-                {!isLoggedIn ? (
-                  <Route path={routes.signUp}>Sign Up</Route>
-                ) : null}
-                <Route path={`/users//:userName`}>
-                  <Layout>Profile</Layout>
-                </Route>
-                <Route>
-                  <NotFound />
-                </Route>
-              </Switch>
-            </Router>
-          </GlobalStyles>
+          <GlobalStyles />
+          <Router>
+            <Switch>
+              <Route path={routes.home} exact>
+                {isLoggedIn ? <Layout>Home</Layout> : <Login />}
+              </Route>
+              {!isLoggedIn ? <Route path={routes.signUp}>Sign Up</Route> : null}
+              <Route path={`/users//:userName`}>
+                <Layout>Profile</Layout>
+              </Route>
+              <Route>
+                <NotFound />
+              </Route>
+            </Switch>
+          </Router>
         </ThemeProvider>
       </HelmetProvider>
     </ApolloProvider>
