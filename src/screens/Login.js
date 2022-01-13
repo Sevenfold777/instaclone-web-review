@@ -125,7 +125,7 @@ function Login() {
             {...register("userName", {
               required: "Username is required.",
               minLength: {
-                value: 5,
+                value: 3,
                 message: "Username should be longer than 5 chars.",
               },
             })}

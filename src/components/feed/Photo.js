@@ -12,6 +12,7 @@ import {
 } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as SolidHeart } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
+import Comments from "./Comments";
 
 const TOGGLE_LIKE_MUTATION = gql`
   mutation ($id: Int!) {
@@ -157,6 +158,13 @@ function Photo({
           </div>
         </PhotoActions>
         <Likes>{likeNum === 1 ? "1 like" : `${likeNum} likes`}</Likes>
+        <Comments
+          photoId={id}
+          author={user.userName}
+          caption={caption}
+          commentNum={commentNum}
+          comments={comments}
+        />
       </PhotoData>
     </PhotoContainer>
   );

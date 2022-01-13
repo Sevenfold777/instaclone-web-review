@@ -8,6 +8,9 @@ import { darkTheme, GlobalStyles, lightTheme } from "./styles";
 import Layout from "./components/Layout";
 import Login from "./screens/Login";
 import NotFound from "./screens/NotFound";
+import Home from "./screens/Home";
+import SignUp from "./screens/SignUp";
+import Profile from "./screens/Profile";
 
 function App() {
   // Use Reactive Var (defined at apollo.js)
@@ -17,8 +20,6 @@ function App() {
   // Change detected --> trigger re-render (React Hook)
   // way to change isLoggedInVar? --> isLoggedInVar("CHANGE VALUE")
 
-  console.log(isLoggedIn);
-
   return (
     <ApolloProvider client={client}>
       <HelmetProvider>
@@ -27,11 +28,23 @@ function App() {
           <Router>
             <Switch>
               <Route path={routes.home} exact>
-                {isLoggedIn ? <Layout>Home</Layout> : <Login />}
+                {isLoggedIn ? (
+                  <Layout>
+                    <Home />
+                  </Layout>
+                ) : (
+                  <Login />
+                )}
               </Route>
-              {!isLoggedIn ? <Route path={routes.signUp}>Sign Up</Route> : null}
-              <Route path={`/users//:userName`}>
-                <Layout>Profile</Layout>
+              {!isLoggedIn ? (
+                <Route path={routes.signUp}>
+                  <SignUp />
+                </Route>
+              ) : null}
+              <Route path={`/users/:userName`}>
+                <Layout>
+                  <Profile />
+                </Layout>
               </Route>
               <Route>
                 <NotFound />

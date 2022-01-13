@@ -1,5 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
-import { useNavigate } from "react-router-dom";
+import { logUserOut } from "../apollo";
 import Photo from "../components/feed/Photo";
 import PageTitle from "../components/PageTitle";
 import { COMMENT_FRAGMENT, PHOTO_FRAGMENT } from "../fragments";
@@ -33,6 +33,7 @@ function Home() {
 
   return (
     <div>
+      <button onClick={() => logUserOut()}>Log Out</button>
       <PageTitle title="Home" />
       {data?.seeFeed?.map((photo) => (
         <Photo key={photo.id} {...photo} />

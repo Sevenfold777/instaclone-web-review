@@ -1,11 +1,5 @@
-import {
-  ApolloClient,
-  ApolloLink,
-  concat,
-  HttpLink,
-  InMemoryCache,
-  makeVar,
-} from "@apollo/client";
+import { ApolloClient, HttpLink, InMemoryCache, makeVar } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
 
 const TOKEN = "TOKEN";
 const DARK_MODE = "DARK_MODE";
@@ -49,22 +43,36 @@ export const disableDarkMode = () => {
 
 /* Settings for apollo client & Advanced HTTP Networking (Request Headers)  */
 // httpLink Definition
-const httpLink = new HttpLink({ uri: "/graphql" });
+const httpLink = new HttpLink({ uri: "http://localhost:4000/" });
 
-// add the authorization to the headers
+// add the token to the headers
+/*
 const authMiddleware = new ApolloLink((operation, forward) => {
   operation.setContext(({ headers = {} }) => ({
     headers: {
       ...headers,
-      authorization: localStorage.getItem(TOKEN) || null,
+      token: localStorage?.getItem("token") || null,
     },
   }));
 
   return forward(operation);
 });
+*/
+
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem(TOKEN);
+  return {
+    headers: {
+      ...headers,
+      token: token ? token : "",
+    },
+  };
+});
 
 // initialize Apollo client
 export const client = new ApolloClient({
-  cache: new InMemoryCache(),
-  link: concat(authMiddleware, httpLink),
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache({
+    typePolicies: { User: { keyFields: (obj) => `User:${obj.userName}` } },
+  }),
 });

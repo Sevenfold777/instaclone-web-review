@@ -10,7 +10,7 @@ import useUser from "../hooks/useUser";
 import routes from "../routes";
 import Avatar from "./Avatar";
 
-const styledHeader = styled.header`
+const SHeader = styled.header`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -54,7 +54,7 @@ function Header() {
   const { data } = useUser();
 
   return (
-    <styledHeader>
+    <SHeader>
       <Wrapper>
         <Column>
           <FontAwesomeIcon icon={faInstagram} size="2x" />
@@ -83,7 +83,7 @@ function Header() {
           )}
         </Column>
       </Wrapper>
-    </styledHeader>
+    </SHeader>
   );
 }
 
